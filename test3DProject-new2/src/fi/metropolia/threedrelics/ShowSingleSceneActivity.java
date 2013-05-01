@@ -91,38 +91,48 @@ public class ShowSingleSceneActivity extends Activity{
 
 	//    Log.d("scene id: ", scene_id+"");
         
-        Cursor c = db.query(DbEntry.TABLE_NAME, new String[]{DbEntry.COLUMN_NAME_MODEL_PATH, DbEntry.COLUMN_NAME_DATE}, DbEntry.COLUMN_NAME_SCENE_ID+"=?", new String[]{scene_id}, null, null, null);
+        Cursor c = db.query(DbEntry.TABLE_NAME, new String[]{DbEntry.COLUMN_NAME_MODEL_PATH, DbEntry.COLUMN_NAME_DATE, DbEntry.COLUMN_DOWNLOAD_COMPLETE}, DbEntry.COLUMN_NAME_SCENE_ID+"=?", new String[]{scene_id}, null, null, null);
         
         if(c!=null&&c.moveToFirst()){
         	Log.d("cursor is not null in single activity","cursor is not null in single activity");
         	
         	final String path = c.getString(c.getColumnIndex(DbEntry.COLUMN_NAME_MODEL_PATH));
         	dateFromDb =  c.getString(c.getColumnIndex(DbEntry.COLUMN_NAME_DATE));
-        	
-        	
-        	//if path is not null enable launch button
+        	String download_complete = c.getString(c.getColumnIndex(DbEntry.COLUMN_DOWNLOAD_COMPLETE));
+        	//String download_complete="false";
+        	//if path is not null and download_complete true enable launch button
+        	// when application first launches, download_complete is false. 
+        	//begin download download_complete  == false. after decompression finished download_complete == true
         	if(!path.trim().equals("")) {
-        		lButton.setEnabled(true);
-        		lButton.setOnClickListener(new LaunchOnClickListener(this,path));
-        	//if date is not same as the date from requested xml, then enable update button	
-        		if (dateFromDb.equals(dateFromXML)){
-        			sButton.setText(R.string.download_button);
+        		if(download_complete.equalsIgnoreCase("false")){
+        			lButton.setText(R.string.download_button);
+        			lButton.setEnabled(false);
         			sButton.setEnabled(false);
         		}else{
-        			sButton.setText(R.string.update_button);
-        			sButton.setEnabled(true);
+        			lButton.setEnabled(true);
+        			lButton.setOnClickListener(new LaunchOnClickListener(this,path));
+            		if (dateFromDb.equals(dateFromXML)){
+            			sButton.setText(R.string.download_button);
+            			sButton.setEnabled(false);
+            		}else{
+            			sButton.setText(R.string.update_button);
+            			sButton.setEnabled(true);
+            		}
         		}
+        	
+        		
+        	//if date is not same as the date from requested xml, then enable update button	
+
         	}
         	
         	//if path is null enable download button
         	else {
+        		sButton.setEnabled(true);
         		sButton.setText(R.string.download_button);
         		lButton.setEnabled(false);
         	}
-        	
-        	
-        	
-        	
+        
+        
         	 
         }
         

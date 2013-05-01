@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import fi.metropolia.threedrelics.ShowSingleSceneActivity;
 import fi.metropolia.threedrelics.classes.XMLElement;
+import fi.metropolia.threedrelics.db.DbEntry;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -34,7 +35,7 @@ public class SingleSceneOnClickListener implements OnItemClickListener{
 	String marker_pic_back;
 	String marker_pic_right;
 	String marker_pic_left;
-	
+	String download_complete;
 	public SingleSceneOnClickListener(Activity a,ArrayList<HashMap<String, String>> availableScenes){
 		this.mActivity = a;
 		this.availableScenes = availableScenes;
@@ -53,7 +54,7 @@ public class SingleSceneOnClickListener implements OnItemClickListener{
 		marker_pic_back = availableScenes.get(position).get(XMLElement.MARKER_BACK);
 		marker_pic_right = availableScenes.get(position).get(XMLElement.MARKER_RIGHT);
 		marker_pic_left = availableScenes.get(position).get(XMLElement.MARKER_LEFT);
-		
+
 		Log.d("scene_pic from onclicklistener","scene_pic from onclicklistener"+ scene_pic);
 		Log.d("title", "title"+title);
 /*		int i=0;
@@ -83,6 +84,7 @@ public class SingleSceneOnClickListener implements OnItemClickListener{
 		in.putExtra(XMLElement.MARKER_BACK, marker_pic_back);
 		in.putExtra(XMLElement.MARKER_RIGHT, marker_pic_right);
 		in.putExtra(XMLElement.MARKER_LEFT, marker_pic_left);
+
 		mActivity.startActivity(in);
 
 

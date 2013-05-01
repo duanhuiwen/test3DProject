@@ -53,7 +53,7 @@ public class XMLParserTask extends AsyncTask<String, Void, String>{
 	
 	//represent the element in xml
 
-	static final String URL = "http://54.247.2.103/page/XMLgen.php";
+	static final String URL = "http://users.metropolia.fi/~huiwend/3DRelics/test_3d.xml";
 	
 	
 
@@ -170,6 +170,7 @@ public class XMLParserTask extends AsyncTask<String, Void, String>{
  			scene.put(XMLElement.MARKER_RIGHT, marker_right);
  			scene.put(XMLElement.DATE, date);
  			scene.put(XMLElement.SCENE_ID, scene_id);
+
  			availableScenes.add(scene);
  			//Log.d("scene id from xml task", "scene id from xml task" + scene_id);
  			ContentValues values = new ContentValues();
@@ -179,6 +180,7 @@ public class XMLParserTask extends AsyncTask<String, Void, String>{
  			values.put(DbEntry.COLUMN_NAME_MODEL_URL, model);
  			values.put(DbEntry.COLUMN_NAME_MODEL_PATH, "");
  			values.put(DbEntry.COLUMN_NAME_DATE, date);
+ 			values.put(DbEntry.COLUMN_DOWNLOAD_COMPLETE, "false");
  			Cursor c = db.query(DbEntry.TABLE_NAME, new String[]{DbEntry.COLUMN_NAME_TITLE}, DbEntry.COLUMN_NAME_SCENE_ID + "= ?", new String[]{String.valueOf(scene_id)}, null, null, null);
  			//if table is empty insert
  			if(ifInsert == true) db.insert(DbEntry.TABLE_NAME, null, values);
@@ -190,7 +192,7 @@ public class XMLParserTask extends AsyncTask<String, Void, String>{
  			    } 				
  			} 						
 		}
-		Log.d("element picture:", "element pic"+ XMLElement.PICTURE);
+//		Log.d("element picture:", "element pic"+ XMLElement.PICTURE);
 		myListActivity.updateList(availableScenes);
 
 		
