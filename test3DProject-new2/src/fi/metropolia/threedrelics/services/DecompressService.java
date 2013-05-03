@@ -18,12 +18,7 @@ import android.os.Looper;
 import android.util.Log;
 
 public class DecompressService extends Service{
-	public static String ZIP_FOLDER = "3dModelsZipped";
-	public static String UNZIPPED_FOLDER = "3dModelsUnzipped";
-	public static String UNZIP_DESTINATION = "destination";
-	public static String ZIPFILE = "zipFile";
-	public static String DOWNLOAD_ID = "download_id";
-	
+
 	public Context context;
 	public String downloadId;
 	
@@ -35,7 +30,10 @@ public class DecompressService extends Service{
 	}
 	
 	public int onStartCommand(Intent intent, int flags, int startid){
-		
+		String ZIP_FOLDER = "3dModelsZipped";
+		String UNZIPPED_FOLDER = "3dModelsUnzipped";
+
+		String DOWNLOAD_ID = "download_id";
 		Log.d("start to decompress in decomress service", "start to decompress in decomress service!");
         Handler compressHandler;
         HandlerThread handlerThread = new HandlerThread("ht"); 

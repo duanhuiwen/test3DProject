@@ -1,11 +1,12 @@
-package fi.metropolia.threedrelics;
+package fi.metropolia.threedrelics.activities;
 
 
 import java.util.HashMap;
 
+import fi.metropolia.threedrelics.R;
 import fi.metropolia.threedrelics.classes.Decompress;
 import fi.metropolia.threedrelics.classes.ImageLoader;
-import fi.metropolia.threedrelics.classes.MyDownloadManager;
+import fi.metropolia.threedrelics.classes.MDownloadManager;
 import fi.metropolia.threedrelics.classes.XMLElement;
 import fi.metropolia.threedrelics.db.DbEntry;
 import fi.metropolia.threedrelics.db.DbHelper;
@@ -33,14 +34,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ShowSingleSceneActivity extends Activity{
-	public static String ZIP_FOLDER = "3dModelsZipped";
-	public static String UNZIPPED_FOLDER = "3dModelsUnzipped";
+
 	private Context context;
 	public DecompressReceiver decompressReceiver;
 	final String DECOMPRESS_FINISHED = "decompress_finished";
 	private BroadcastReceiver receiveDecompressionNotification;
 	public ImageLoader imageLoader = new ImageLoader(this);
-
+	 final SQLiteDatabase db = new DbHelper(this.getApplicationContext()).getWritableDatabase();
 	
 	
 	
@@ -87,18 +87,18 @@ public class ShowSingleSceneActivity extends Activity{
     //    Bundle bu = in.getExtras();
     //    Log.d("bundle", bu.keySet());
         
-        final SQLiteDatabase db = new DbHelper(this.getApplicationContext()).getWritableDatabase();
+       
 
 	//    Log.d("scene id: ", scene_id+"");
         
-        Cursor c = db.query(DbEntry.TABLE_NAME, new String[]{DbEntry.COLUMN_NAME_MODEL_PATH, DbEntry.COLUMN_NAME_DATE, DbEntry.COLUMN_DOWNLOAD_COMPLETE}, DbEntry.COLUMN_NAME_SCENE_ID+"=?", new String[]{scene_id}, null, null, null);
+        Cursor c = db.query(DbEntry.TABLE_NAME, new String[]{DbEntry.COLUMN_NAME_MODEL_PATH, DbEntry.COLUMN_NAME_DATE, DbEntry.COLUMN_NAME_DOWNLOAD_COMPLETE}, DbEntry.COLUMN_NAME_SCENE_ID+"=?", new String[]{scene_id}, null, null, null);
         
         if(c!=null&&c.moveToFirst()){
         	Log.d("cursor is not null in single activity","cursor is not null in single activity");
         	
         	final String path = c.getString(c.getColumnIndex(DbEntry.COLUMN_NAME_MODEL_PATH));
         	dateFromDb =  c.getString(c.getColumnIndex(DbEntry.COLUMN_NAME_DATE));
-        	String download_complete = c.getString(c.getColumnIndex(DbEntry.COLUMN_DOWNLOAD_COMPLETE));
+        	String download_complete = c.getString(c.getColumnIndex(DbEntry.COLUMN_NAME_DOWNLOAD_COMPLETE));
         	//String download_complete="false";
         	//if path is not null and download_complete true enable launch button
         	// when application first launches, download_complete is false. 
@@ -158,15 +158,17 @@ public class ShowSingleSceneActivity extends Activity{
 				// TODO Auto-generated method stub
 				
 				//start download, once the download is finished, it will notify the decompress receiver(registered in manifest) and then triger decompress service
-				MyDownloadManager dm = new MyDownloadManager(context, model, title);
+				MDownloadManager dm = new MDownloadManager(context, model, title);
 				((Button) (ShowSingleSceneActivity.this.findViewById(R.id.scene_button))).setText(R.string.download_button);
 				v.setEnabled(false);
 				dm.startDownload();
+				String download_complete = "false";
 				String downloadId = String.valueOf(dm.getDownloadId()); 
 				
 				//correlate the download id with specific scene
 				ContentValues cv = new ContentValues();
 				cv.put(DbEntry.COLUMN_NAME_DOWNLOAD_ID, downloadId);
+				cv.put(DbEntry.COLUMN_NAME_DOWNLOAD_COMPLETE,download_complete);
 				db.update(DbEntry.TABLE_NAME, cv, DbEntry.COLUMN_NAME_MODEL_URL+ "= ?" , new String[]{ model });
 			}});
         
@@ -185,6 +187,11 @@ public class ShowSingleSceneActivity extends Activity{
 				
 				ShowSingleSceneActivity.this.findViewById(R.id.launch_button).setOnClickListener(new LaunchOnClickListener(ShowSingleSceneActivity.this, path));
 				ShowSingleSceneActivity.this.findViewById(R.id.scene_button).setEnabled(false);
+				
+				ContentValues cv = new ContentValues();
+				String download_complete = "true";
+				cv.put(DbEntry.COLUMN_NAME_DOWNLOAD_COMPLETE,download_complete);
+				db.update(DbEntry.TABLE_NAME, cv, DbEntry.COLUMN_NAME_MODEL_URL+ "= ?" , new String[]{ model });
 			
 			}
         	

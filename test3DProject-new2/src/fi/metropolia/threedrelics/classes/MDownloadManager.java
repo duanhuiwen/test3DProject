@@ -18,14 +18,14 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 
-public class MyDownloadManager {
+public class MDownloadManager {
 	  private DownloadManager dm = null;
 	  private Context c;
 	  public static String FOLDER = "3dModelsZipped";
 	  public String title;
 	  public String model;
 	  public Long id;
-	public MyDownloadManager(Context c,String model,String title){
+	public MDownloadManager(Context c,String model,String title){
 		this.model = model;
 		this.title = title;
 		this.c = c;

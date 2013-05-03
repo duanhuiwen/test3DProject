@@ -9,10 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class DecompressReceiver extends BroadcastReceiver{
-	public static String ZIP_FOLDER = "3dModelsZipped";
-	public static String UNZIPPED_FOLDER = "3dModelsUnzipped";
-	public static String UNZIP_DESTINATION = "destination";
-	public static String ZIPFILE = "zipFile";
+
 	public static String DOWNLOAD_ID = "download_id";
 	@Override
 	public void onReceive(Context ctxt, Intent i) {

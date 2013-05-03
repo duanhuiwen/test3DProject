@@ -1,10 +1,11 @@
-package fi.metropolia.threedrelics;
+package fi.metropolia.threedrelics.activities;
 
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 
+import fi.metropolia.threedrelics.R;
 import fi.metropolia.threedrelics.async.XMLParserTask;
 import fi.metropolia.threedrelics.classes.SceneAdapter;
 import fi.metropolia.threedrelics.listeners.SingleSceneOnClickListener;

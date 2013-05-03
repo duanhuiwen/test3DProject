@@ -10,7 +10,7 @@ public class DbEntry implements BaseColumns{
     public static final String COLUMN_NAME_MODEL_PATH = "path";
     public static final String COLUMN_NAME_MODEL_URL = "url";
     public static final String COLUMN_NAME_DATE = "date";
-    public static final String COLUMN_DOWNLOAD_COMPLETE = "download_complete";
+    public static final String COLUMN_NAME_DOWNLOAD_COMPLETE = "download_complete";
     private static final String TEXT_TYPE = " TEXT";
     private static final String INTEGER_TYPE = " INTEGER";
     private static final String COMMA_SEP = ",";
@@ -23,7 +23,7 @@ public class DbEntry implements BaseColumns{
         DbEntry.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP +
         DbEntry.COLUMN_NAME_MODEL_PATH + TEXT_TYPE + COMMA_SEP +
         DbEntry.COLUMN_NAME_MODEL_URL + TEXT_TYPE + COMMA_SEP +
-        DbEntry.COLUMN_DOWNLOAD_COMPLETE + TEXT_TYPE + COMMA_SEP +
+        DbEntry.COLUMN_NAME_DOWNLOAD_COMPLETE + TEXT_TYPE + COMMA_SEP +
         DbEntry.COLUMN_NAME_DATE + TEXT_TYPE + 
         " )";
 

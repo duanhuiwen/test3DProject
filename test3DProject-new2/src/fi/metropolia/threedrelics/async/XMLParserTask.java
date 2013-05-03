@@ -27,7 +27,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import fi.metropolia.threedrelics.R;
-import fi.metropolia.threedrelics.ShowSceneActivity;
+import fi.metropolia.threedrelics.activities.ShowSceneActivity;
 import fi.metropolia.threedrelics.classes.XMLElement;
 import fi.metropolia.threedrelics.classes.XMLParser;
 import fi.metropolia.threedrelics.db.DbEntry;
@@ -180,7 +180,7 @@ public class XMLParserTask extends AsyncTask<String, Void, String>{
  			values.put(DbEntry.COLUMN_NAME_MODEL_URL, model);
  			values.put(DbEntry.COLUMN_NAME_MODEL_PATH, "");
  			values.put(DbEntry.COLUMN_NAME_DATE, date);
- 			values.put(DbEntry.COLUMN_DOWNLOAD_COMPLETE, "false");
+ 			values.put(DbEntry.COLUMN_NAME_DOWNLOAD_COMPLETE, "false");
  			Cursor c = db.query(DbEntry.TABLE_NAME, new String[]{DbEntry.COLUMN_NAME_TITLE}, DbEntry.COLUMN_NAME_SCENE_ID + "= ?", new String[]{String.valueOf(scene_id)}, null, null, null);
  			//if table is empty insert
  			if(ifInsert == true) db.insert(DbEntry.TABLE_NAME, null, values);

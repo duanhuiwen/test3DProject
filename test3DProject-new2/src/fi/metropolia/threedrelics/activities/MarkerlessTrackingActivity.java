@@ -7,7 +7,7 @@
  *
  */
 
-package fi.metropolia.threedrelics;
+package fi.metropolia.threedrelics.activities;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -26,17 +26,16 @@ import com.metaio.sdk.jni.TrackingValuesVector;
 import com.metaio.sdk.jni.Vector3d;
 import com.metaio.tools.io.AssetsManager;
 
+import fi.metropolia.threedrelics.R;
 import fi.metropolia.threedrelics.classes.FindCertainExtension;
 import fi.metropolia.threedrelics.classes.XMLParser;
 
-public class MarkerlessTracking extends MetaioSDKViewActivity 
+public class MarkerlessTrackingActivity extends MetaioSDKViewActivity 
 {
 
 	
-	private IGeometry myModel1;
-	private IGeometry myModel2;
-	private IGeometry myModel3;
-	private IGeometry myModel4;
+	private IGeometry myModel;
+
 	private Intent intent;
 	String trackingConfigFile;
 	
@@ -68,17 +67,17 @@ public class MarkerlessTracking extends MetaioSDKViewActivity
 			
 				if (poses.size() != 0){
 					int COSId = poses.get(0).getCoordinateSystemID();
-					myModel1.setCoordinateSystemID(COSId);
+					myModel.setCoordinateSystemID(COSId);
 					 switch (COSId) {
-			            case 1:  myModel1.setRotation(new Rotation((float)-Math.PI/2, 0f, 0f));
+			            case 1:  myModel.setRotation(new Rotation((float)-Math.PI/2, 0f, 0f));
 			                     break;
-			            case 2:  myModel1.setRotation(new Rotation((float)-Math.PI/2, (float)Math.PI, 0f));
+			            case 2:  myModel.setRotation(new Rotation((float)-Math.PI/2, (float)Math.PI, 0f));
 			                     break;
-			            case 3:  myModel1.setRotation(new Rotation((float)-Math.PI/2,(float)-Math.PI/2, 0f));
+			            case 3:  myModel.setRotation(new Rotation((float)-Math.PI/2,(float)-Math.PI/2, 0f));
 			                     break;
-			            case 4:  myModel1.setRotation(new Rotation((float)-Math.PI/2,(float)Math.PI/2, 0f));
+			            case 4:  myModel.setRotation(new Rotation((float)-Math.PI/2,(float)Math.PI/2, 0f));
 			            		 break;
-			            default: myModel1.setRotation(new Rotation(0f, 0f, 0f));
+			            default: myModel.setRotation(new Rotation(0f, 0f, 0f));
 			                     break;
 			        }
 					
@@ -178,11 +177,11 @@ public class MarkerlessTracking extends MetaioSDKViewActivity
 			
 			if (modelFullPath != null) 
 			{
-				myModel1 = metaioSDK.createGeometry(modelFullPath);
-				if (myModel1 != null) 
+				myModel = metaioSDK.createGeometry(modelFullPath);
+				if (myModel != null) 
 				{
 					// Set geometry properties
-					myModel1.setScale(new Vector3d(0.1f, 0.1f, 0.1f));
+					myModel.setScale(new Vector3d(0.1f, 0.1f, 0.1f));
 				//	myModel2.setScale(new Vector3d(0.08f, 0.08f, 0.08f));
 				//	myModel3.setScale(new Vector3d(0.08f, 0.08f, 0.08f));
 				//	myModel4.setScale(new Vector3d(0.08f, 0.08f, 0.08f));
@@ -199,28 +198,11 @@ public class MarkerlessTracking extends MetaioSDKViewActivity
 			
 		}
 	}
-	
-  
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// TODO Auto-generated method stub
-		this.getMenuInflater().inflate(R.menu.main_menu, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	
-
 
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
+	protected IMetaioSDKCallback getMetaioSDKCallbackHandler() {
 		// TODO Auto-generated method stub
-		switch(item.getItemId()){
-			case R.id.get_scenes:
-				Intent in = new Intent(this.getApplicationContext(),ShowSceneActivity.class);
-				this.startActivity(in);
-		}
-			
-		return super.onOptionsItemSelected(item);
+		return null;
 	}
 
 	@Override
@@ -228,13 +210,7 @@ public class MarkerlessTracking extends MetaioSDKViewActivity
 		// TODO Auto-generated method stub
 		
 	}
-
-
-
-	@Override
-	protected IMetaioSDKCallback getMetaioSDKCallbackHandler() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
+  
+
 }

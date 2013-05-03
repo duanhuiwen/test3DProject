@@ -3,7 +3,7 @@ package fi.metropolia.threedrelics.listeners;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import fi.metropolia.threedrelics.ShowSingleSceneActivity;
+import fi.metropolia.threedrelics.activities.ShowSingleSceneActivity;
 import fi.metropolia.threedrelics.classes.XMLElement;
 import fi.metropolia.threedrelics.db.DbEntry;
 
@@ -20,22 +20,7 @@ public class SingleSceneOnClickListener implements OnItemClickListener{
 	private ArrayList<HashMap<String, String>> availableScenes = new ArrayList<HashMap<String, String>>();	
 	private Activity mActivity;
 	
-	String title;
-	String desc;
-	String scene_pic;
-	String model;
-	String scene_id;
-	String date;
 
-	
-	
-	
-	
-	String marker_pic_front;
-	String marker_pic_back;
-	String marker_pic_right;
-	String marker_pic_left;
-	String download_complete;
 	public SingleSceneOnClickListener(Activity a,ArrayList<HashMap<String, String>> availableScenes){
 		this.mActivity = a;
 		this.availableScenes = availableScenes;
@@ -44,16 +29,16 @@ public class SingleSceneOnClickListener implements OnItemClickListener{
 	public void onItemClick(AdapterView<?> parent, View view,
 			int position, long id) {
 		
-		title = (String) availableScenes.get(position).get(XMLElement.TITLE);
-		desc = availableScenes.get(position).get(XMLElement.DESC);
-		scene_pic = availableScenes.get(position).get(XMLElement.PICTURE);
-		model = availableScenes.get(position).get(XMLElement.MODEL);
-		scene_id = availableScenes.get(position).get(XMLElement.SCENE_ID);
-		date =  availableScenes.get(position).get(XMLElement.DATE);
-		marker_pic_front = availableScenes.get(position).get(XMLElement.MARKER_FRONT);
-		marker_pic_back = availableScenes.get(position).get(XMLElement.MARKER_BACK);
-		marker_pic_right = availableScenes.get(position).get(XMLElement.MARKER_RIGHT);
-		marker_pic_left = availableScenes.get(position).get(XMLElement.MARKER_LEFT);
+		String	title = (String) availableScenes.get(position).get(XMLElement.TITLE);
+		String desc = availableScenes.get(position).get(XMLElement.DESC);
+		String	scene_pic = availableScenes.get(position).get(XMLElement.PICTURE);
+		String	model = availableScenes.get(position).get(XMLElement.MODEL);
+		String	scene_id = availableScenes.get(position).get(XMLElement.SCENE_ID);
+		String	date =  availableScenes.get(position).get(XMLElement.DATE);
+		String	marker_pic_front = availableScenes.get(position).get(XMLElement.MARKER_FRONT);
+		String	marker_pic_back = availableScenes.get(position).get(XMLElement.MARKER_BACK);
+		String	marker_pic_right = availableScenes.get(position).get(XMLElement.MARKER_RIGHT);
+		String	marker_pic_left = availableScenes.get(position).get(XMLElement.MARKER_LEFT);
 
 		Log.d("scene_pic from onclicklistener","scene_pic from onclicklistener"+ scene_pic);
 		Log.d("title", "title"+title);

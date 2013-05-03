@@ -6,7 +6,7 @@
  * Copyright 2012 metaio GmbH. All rights reserved.
 
  */
-package fi.metropolia.threedrelics;
+package fi.metropolia.threedrelics.activities;
 
 import android.app.Activity;
 import android.content.Context;
