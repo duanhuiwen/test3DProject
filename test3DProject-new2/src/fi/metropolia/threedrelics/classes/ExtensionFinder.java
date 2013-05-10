@@ -2,12 +2,12 @@ package fi.metropolia.threedrelics.classes;
 
 import java.io.*;
 
-public class FindCertainExtension {
+public class ExtensionFinder {
  
 	
  
 	private String filename;
-	public FindCertainExtension(String folder, String ext){
+	public ExtensionFinder(String folder, String ext){
 		GenericExtFilter filter = new GenericExtFilter(ext);
 		 
 		File dir = new File(folder);

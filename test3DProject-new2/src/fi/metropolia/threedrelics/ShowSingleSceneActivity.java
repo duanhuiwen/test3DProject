@@ -154,11 +154,12 @@ public class ShowSingleSceneActivity extends Activity{
 				// TODO Auto-generated method stub
 				
 				//start download, once the download is finished, it will notify the decompress receiver(registered in manifest) and then triger decompress service
-				MDownloadManager dm = new MDownloadManager(context, model, scene_id);
+
 				((Button) (ShowSingleSceneActivity.this.findViewById(R.id.scene_button))).setText(R.string.download_button);
 				v.setEnabled(false);
+				
+				MDownloadManager dm = new MDownloadManager(context, model, scene_id);
 				dm.startDownload();
-			
 				String downloadId = String.valueOf(dm.getDownloadId()); 
 				
 				//correlate the download id with specific scene add date to db

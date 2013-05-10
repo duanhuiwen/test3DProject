@@ -29,31 +29,19 @@ public class MDownloadManager {
 		this.model = model;
 		this.scene_id = scene_id;
 		this.c = c;
-		this.dm = (DownloadManager)c.getSystemService(Context.DOWNLOAD_SERVICE); 
-		
-		
-	}
-	
-	
+		this.dm = (DownloadManager)c.getSystemService(Context.DOWNLOAD_SERVICE); 		
+	}		
 	public void startDownload() {
 			Log.d("in start download", "start download");
 		    Uri uri=Uri.parse(model);
 		    Log.d("url", "start download url" + model);
-		  //  Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).mkdirs();
-		  //  Environment.getExternalStorageDirectory(Environment.DIRECTORY_DOWNLOADS).mkdirs();
 		    DownloadManager.Request req=new DownloadManager.Request(uri);
-
 		    req.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
 		       .setAllowedOverRoaming(false)
 		       .setTitle(scene_id)
 		       .setDestinationInExternalFilesDir(c,FOLDER,scene_id+".zip");
-		       //.setDestinationInExternalFilesDir(c,title,title+".zip");
-		      // .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,"test.mp4");
-		   //Log.d("external dir", "external dir" + c.getExternalFilesDir(null));
 		   id = dm.enqueue(req);
-
 		  }
-
     public Long getDownloadId(){
     	return this.id;
     }

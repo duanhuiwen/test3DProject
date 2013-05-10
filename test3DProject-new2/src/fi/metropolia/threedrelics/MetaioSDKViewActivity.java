@@ -176,7 +176,7 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 	protected void onStart() 
 	{
 		super.onStart();
-		
+		Log.d("MetaioSDKViewActivity.onstart: thread: ",""+Thread.currentThread().getId());
 		try 
 		{
 			mSurfaceView = null;
@@ -195,7 +195,9 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 	
 				// Add GL Surface view
 				mSurfaceView = new MetaioSurfaceView(this, mSeeThrough);
+				Log.d("register callback","register callback");
 				mSurfaceView.registerCallback(this);
+				Log.d("config surfaceview","config surfaceview");
 				mSurfaceView.setKeepScreenOn(true);
 				mSurfaceView.setOnTouchListener(this);
 	
@@ -207,7 +209,7 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 				
 				MetaioDebug.log("mSurfaceView layout: "+params.width+", "+params.height);
 				MetaioDebug.log("MetaioSDKViewActivity.onStart: addContentView(mSurfaceView)");
- 
+				Log.d("add surface view","add surface view");
 				addContentView(mSurfaceView, params);
 				mSurfaceView.setZOrderMediaOverlay(true);
 				
@@ -217,6 +219,7 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 			// If GUI view is inflated, add it
 	   		if (mGUIView != null)
 	   		{
+	   			Log.d("load gui","load gui");
 		   		addContentView(mGUIView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 		   		mGUIView.bringToFront();
 	   		}
@@ -455,7 +458,8 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 	@Override
 	public void onSurfaceCreated() 
 	{
-		MetaioDebug.log("MetaioSDKViewActivity.onSurfaceCreated: GL thread: "+Thread.currentThread().getId());
+		//MetaioDebug.log("MetaioSDKViewActivity.onSurfaceCreated: GL thread: "+Thread.currentThread().getId());
+		Log.d("MetaioSDKViewActivity.onstart: onSurfaceCreated: ",""+Thread.currentThread().getId());
 		try
 		{
 			// initialized the renderer
@@ -466,7 +470,10 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 				metaioSDK.initializeRenderer(	mRendererResolution.getX(),
 						                        mRendererResolution.getY(),
 												ERENDER_SYSTEM.ERENDER_SYSTEM_OPENGL_ES_2_0 );
+				Log.d("render initialized","render initialized");
+				
 				loadContent();
+				Log.d("load content","load content");
 				mRendererInitialized=true;
 			}
 			else
@@ -477,14 +484,7 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 	
 			updateLayout(500);
 			
-			// connect the audio callbacks
-			MetaioDebug.log("MetaioSDKViewActivity.onSurfaceCreated: Registering audio renderer...");
-			metaioSDK.registerAudioCallback( mSurfaceView.getAudioRenderer() );
-			mHandler = getMetaioSDKCallbackHandler();
-			if (mHandler != null)
-				metaioSDK.registerCallback( mHandler );
 
-			MetaioDebug.log("MetaioSDKViewActivity.onSurfaceCreated");
 
 		}
 		catch (Exception e)
@@ -499,6 +499,7 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 	{
 		try 
 		{	
+			//Log.d("ondraw", "ondraw");
 			// render the the results
 			if (mRendererInitialized)
 				metaioSDK.render();

@@ -1,16 +1,4 @@
-/**
- * Tutorial3.java
- * metaio SDK v4.0.1
- *
- * Created by Arsalan Malik and Anton Fedosov
- * Copyright 2012 metaio GmbH. All rights reserved.
- *
- */
-
 package fi.metropolia.threedrelics;
-
-import java.io.File;
-import java.io.FilenameFilter;
 
 import android.content.Intent;
 import android.util.Log;
@@ -24,9 +12,9 @@ import com.metaio.sdk.jni.IMetaioSDKCallback;
 import com.metaio.sdk.jni.Rotation;
 import com.metaio.sdk.jni.TrackingValuesVector;
 import com.metaio.sdk.jni.Vector3d;
-import com.metaio.tools.io.AssetsManager;
 
-import fi.metropolia.threedrelics.classes.FindCertainExtension;
+
+import fi.metropolia.threedrelics.classes.ExtensionFinder;
 import fi.metropolia.threedrelics.classes.XMLParser;
 
 public class MarkerlessTracking extends MetaioSDKViewActivity 
@@ -34,9 +22,7 @@ public class MarkerlessTracking extends MetaioSDKViewActivity
 
 	
 	private IGeometry myModel1;
-	private IGeometry myModel2;
-	private IGeometry myModel3;
-	private IGeometry myModel4;
+
 	private Intent intent;
 	String trackingConfigFile;
 	
@@ -58,7 +44,7 @@ public class MarkerlessTracking extends MetaioSDKViewActivity
 		{
 			// get all detected poses/targets
 			TrackingValuesVector poses = metaioSDK.getTrackingValues();
-			Log.d("pose size","pose size"+ poses.size());
+		//	Log.d("pose size","pose size"+ poses.size());
 			//if we have detected one, attach our metaio man to this coordinate system Id
 			
 /*			if(poses.get(0)!= null){
@@ -90,11 +76,7 @@ public class MarkerlessTracking extends MetaioSDKViewActivity
 			
 			
 			
-				//Log.d("poses.size:", ""+poses.size());
-				//if(poses.size() >1){
-					//mMetaioMan.setCoordinateSystemID(poses.get(1).getCoordinateSystemID());
-				//}
-					
+
 				
 		}
 	}
@@ -159,7 +141,7 @@ public class MarkerlessTracking extends MetaioSDKViewActivity
 			
 			
 			//trackingConfigFile = path + "/" + "TrackingData_MarkerlessFast.xml";
-			trackingConfigFile =  new FindCertainExtension(path,".xml").getFile();
+			trackingConfigFile =  new ExtensionFinder(path,".xml").getFile();
 			String trackingConfigFileFullPath = path + "/" + trackingConfigFile;
 		//	xmlParser.modifyXml(trackingConfigFileFullPath, "marker.jpg");
 			boolean result = metaioSDK.setTrackingConfiguration(trackingConfigFileFullPath); 
@@ -171,7 +153,7 @@ public class MarkerlessTracking extends MetaioSDKViewActivity
 	
 			
 			
-			String model = new FindCertainExtension(path,".obj").getFile();
+			String model = new ExtensionFinder(path,".obj").getFile();
 			String modelFullPath = path + "/" + model;
 			
 			
@@ -181,11 +163,9 @@ public class MarkerlessTracking extends MetaioSDKViewActivity
 				myModel1 = metaioSDK.createGeometry(modelFullPath);
 				if (myModel1 != null) 
 				{
-					// Set geometry properties
+					
 					myModel1.setScale(new Vector3d(0.1f, 0.1f, 0.1f));
-				//	myModel2.setScale(new Vector3d(0.08f, 0.08f, 0.08f));
-				//	myModel3.setScale(new Vector3d(0.08f, 0.08f, 0.08f));
-				//	myModel4.setScale(new Vector3d(0.08f, 0.08f, 0.08f));
+
 					MetaioDebug.log("Loaded geometry "+modelFullPath);
 				}
 				else
