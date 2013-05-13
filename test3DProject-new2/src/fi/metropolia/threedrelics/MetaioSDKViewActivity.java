@@ -145,14 +145,13 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 		
 		try
 		{
-			// Create sensors manager
+
 			mSensors = new SensorsComponentAndroid( getApplicationContext() );
 			
-			// create the SDK instance
+
 			
 			final String signature = "OIR2aNwg1Fb1PTS4o1FNmH+TDQc5Ox6pUQqXnSIOqRg=";
-			  
-			// Create sdk by passing Activity instance and application signature
+
 			metaioSDK = MetaioSDK.CreateMetaioSDKAndroid(this, signature);
 			metaioSDK.registerSensorsComponent(mSensors);
 			metaioSDK.setSeeThrough(mSeeThrough);
@@ -162,7 +161,8 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 		}
 		catch (Exception e)
 		{
-			MetaioDebug.log(Log.ERROR, "Error creating metaio SDK");
+			//MetaioDebug.log(Log.ERROR, "Error creating metaio SDK");
+			Log.d("Error creating metaio SDK","Error creating metaio SDK:" + e.getMessage());
 			finish();
 		}
 		
@@ -187,16 +187,14 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 				// Set empty content view
 				setContentView(new FrameLayout(this));
 				
-				// now activate the camera
-				mCameraResolution = metaioSDK.startCamera(0, 320, 240);
+				// according to nexus s screen size
+				mCameraResolution = metaioSDK.startCamera(0, 800, 480);
 				
-				// TODO: can also start camera at higher resolution with optional downscaling 
-//				mCameraResolution = mMobileSDK.startCamera(0, 640, 480, 2);
-	
+
 				// Add GL Surface view
 				mSurfaceView = new MetaioSurfaceView(this, mSeeThrough);
 				Log.d("register callback","register callback");
-				mSurfaceView.registerCallback(this);
+			
 				Log.d("config surfaceview","config surfaceview");
 				mSurfaceView.setKeepScreenOn(true);
 				mSurfaceView.setOnTouchListener(this);
@@ -212,7 +210,7 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 				Log.d("add surface view","add surface view");
 				addContentView(mSurfaceView, params);
 				mSurfaceView.setZOrderMediaOverlay(true);
-				
+				mSurfaceView.registerCallback(this);
 				
 			}
 			
@@ -225,7 +223,8 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 	   		}
 	  
 		} catch (Exception e) {
-			MetaioDebug.log(Log.ERROR, "Error creating views: "+e.getMessage());
+			//MetaioDebug.log(Log.ERROR, "Error creating views: "+e.getMessage());
+			Log.d("Error creating views:", "Error creating views:");
 		}
 
 	}
@@ -234,7 +233,7 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 	protected void onPause() 
 	{
 		super.onPause();
-		MetaioDebug.log("MetaioSDKViewActivity.onPause(){");
+		Log.d("MetaioSDKViewActivity.onPause()","MetaioSDKViewActivity.onPause()");
 
 		if (mWakeLock != null)
 			mWakeLock.release();
@@ -257,7 +256,7 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 		if (mWakeLock != null)
 			mWakeLock.acquire();
 		
-		// make sure to resume the sdk surface
+		
 		if (mSurfaceView != null)
 			mSurfaceView.onResume();
 	
@@ -272,7 +271,7 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 	{
 		super.onStop();
 		
-		MetaioDebug.log("MetaioSDKViewActivity.onStop()");
+		Log.d("MetaioSDKViewActivity.onStop()","MetaioSDKViewActivity.onStop()");
 		
 		if (metaioSDK != null)
 		{
@@ -383,7 +382,7 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 	private void updateLayout(long delay)
 	{
 		try
-		{
+		{	Log.d("update layout", "update layout");
 			mSurfaceView.queueEvent(new Runnable()
 			{
 				@Override
@@ -414,7 +413,7 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 		}
 		catch (Exception e)
 		{
-			
+			Log.d("update layout:","update layout:"+e.getMessage());
 		}
 	}
 	
@@ -425,7 +424,7 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 		if (event.getAction() == MotionEvent.ACTION_UP) 
 		{
 			MetaioDebug.log("MetaioSDKViewActivity touched at: "+event.toString());
-			
+			Log.d("ontouch","ontouch");
 			try
 			{
 				final int x = (int) ((event.getX() * mRendererResolution.getX())/mSurfaceView.getWidth());
@@ -446,27 +445,24 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 			
 		}
 		
-		// don't ask why we always need to return true contrary to what documentation says 
+		
 		return true;
 	}
 	
-	/**
-	 * This function will be called, right after the OpenGL context was created.
-	 * All calls to SDK must be done after this callback has been
-	 * triggered.
-	 */
+
 	@Override
 	public void onSurfaceCreated() 
 	{
-		//MetaioDebug.log("MetaioSDKViewActivity.onSurfaceCreated: GL thread: "+Thread.currentThread().getId());
+		
 		Log.d("MetaioSDKViewActivity.onstart: onSurfaceCreated: ",""+Thread.currentThread().getId());
 		try
 		{
 			// initialized the renderer
-			if(!mRendererInitialized)
+			if(!mRendererInitialized && mSurfaceView!= null)
 			{
 				mRendererResolution = new Vector2di(mSurfaceView.getWidth(), mSurfaceView.getHeight());
-				MetaioDebug.log("MetaioSDKViewActivity.onSurfaceCreated: Initializing renderer: "+mRendererResolution);
+				
+				Log.d("init renderer","init renderer");
 				metaioSDK.initializeRenderer(	mRendererResolution.getX(),
 						                        mRendererResolution.getY(),
 												ERENDER_SYSTEM.ERENDER_SYSTEM_OPENGL_ES_2_0 );
@@ -478,7 +474,8 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 			}
 			else
 			{
-				MetaioDebug.log("MetaioSDKViewActivity.onSurfaceCreated: Reloading textures...");
+		
+				Log.d("MetaioSDKViewActivity.onSurfaceCreated: Reloading textures...","MetaioSDKViewActivity.onSurfaceCreated: Reloading textures...");
 				metaioSDK.reloadTextures();
 			}
 	
@@ -489,7 +486,8 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 		}
 		catch (Exception e)
 		{
-			MetaioDebug.log(Log.ERROR, "MetaioSDKViewActivity.onSurfaceCreated: "+e.getMessage());
+			//MetaioDebug.log(Log.ERROR, "MetaioSDKViewActivity.onSurfaceCreated: "+e.getMessage());
+			Log.d("MetaioSDKViewActivity.onSurfaceCreated: ", "MetaioSDKViewActivity.onSurfaceCreated: "+e.getMessage());
 		}
  	}
 
@@ -499,15 +497,15 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 	{
 		try 
 		{	
-			//Log.d("ondraw", "ondraw");
+			Log.d("ondraw", "ondraw");
 			// render the the results
-			if (mRendererInitialized)
+			if (mRendererInitialized && mSurfaceView != null)
 				metaioSDK.render();
 
 		}
 		catch (Exception e)
 		{
-			
+			Log.d("on draw frame","on draw frame"+e.getMessage());
 		}  
 	}
 
@@ -515,14 +513,17 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 	@Override
 	public void onSurfaceDestroyed() 
 	{
-		MetaioDebug.log("MetaioSDKViewActivity.onSurfaceDestroyed(){");
+		
+		Log.d("MetaioSDKViewActivity.onSurfaceDestroyed()", "MetaioSDKViewActivity.onSurfaceDestroyed()");
+		
 		mSurfaceView = null;
+		//metaioSDK.delete();
 	}
 
 	@Override
 	public void onSurfaceChanged() 
-	{
-		MetaioDebug.log("MetaioSDKViewActivity.onSurfaceChanged(){");
+	{		
+		Log.d("MetaioSDKViewActivity.onSurfaceChanged()", "MetaioSDKViewActivity.onSurfaceChanged()");
 	}
  	  
 	@Override

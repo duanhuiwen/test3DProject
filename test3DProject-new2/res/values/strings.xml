@@ -14,4 +14,16 @@
 	<string name="left_marker_string">Left</string>
 	<string name="right_marker_string">Right</string>
 	
+	<string name="sub_heading">Augmented reality for historical scene.</string>
+	
+	<string name="step1">Step1</string>
+	<string name="step2">Step2</string>
+	<string name="step3">Step3</string>
+	<string name="step4">Step4</string>
+	
+	<string name="launch">Launch</string>
+	
+	
+	<string name="download_finish">Download complete! Start configuration&#8230;</string>
+	<string name="decompress_finish">Configuration complete! You can view your new scene!</string>
 </resources>

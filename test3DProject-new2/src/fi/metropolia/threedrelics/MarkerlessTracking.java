@@ -44,14 +44,6 @@ public class MarkerlessTracking extends MetaioSDKViewActivity
 		{
 			// get all detected poses/targets
 			TrackingValuesVector poses = metaioSDK.getTrackingValues();
-		//	Log.d("pose size","pose size"+ poses.size());
-			//if we have detected one, attach our metaio man to this coordinate system Id
-			
-/*			if(poses.get(0)!= null){
-				Log.d("poses.get(0)!= null","poses.get(0)!= null"+ poses.size());
-				
-			}*/
-			
 				if (poses.size() != 0){
 					int COSId = poses.get(0).getCoordinateSystemID();
 					myModel1.setCoordinateSystemID(COSId);
@@ -66,8 +58,7 @@ public class MarkerlessTracking extends MetaioSDKViewActivity
 			            		 break;
 			            default: myModel1.setRotation(new Rotation(0f, 0f, 0f));
 			                     break;
-			        }
-					
+			        }					
 				}
 					
 				/*					myModel2.setCoordinateSystemID(poses.get(1).getCoordinateSystemID());

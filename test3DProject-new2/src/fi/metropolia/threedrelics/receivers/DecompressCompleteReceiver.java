@@ -13,12 +13,13 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 
 public class DecompressCompleteReceiver extends BroadcastReceiver{
 	@Override
 	public void onReceive(Context c, Intent in) {
 		// TODO Auto-generated method stub
-	//	Toast.makeText(c, "finished decompress",Toast.LENGTH_LONG ).show();
+     	Toast.makeText(c, R.string.decompress_finish,Toast.LENGTH_LONG ).show();
 		
 		
 //        Cursor myCursor = db.query(DbEntry.TABLE_NAME, new String[]{DbEntry.COLUMN_NAME_MODEL_PATH, DbEntry.COLUMN_NAME_DATE}, DbEntry.COLUMN_NAME_SCENE_ID+"=?", new String[]{scene_id}, null, null, null);
