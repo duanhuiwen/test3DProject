@@ -48,16 +48,17 @@ public class MarkerlessTracking extends MetaioSDKViewActivity
 					int COSId = poses.get(0).getCoordinateSystemID();
 					myModel1.setCoordinateSystemID(COSId);
 					 switch (COSId) {
-			            case 1:  myModel1.setRotation(new Rotation((float)-Math.PI/2, 0f, 0f));
-			                     break;
-			            case 2:  myModel1.setRotation(new Rotation((float)-Math.PI/2, (float)Math.PI, 0f));
-			                     break;
-			            case 3:  myModel1.setRotation(new Rotation((float)-Math.PI/2,(float)-Math.PI/2, 0f));
-			                     break;
-			            case 4:  myModel1.setRotation(new Rotation((float)-Math.PI/2,(float)Math.PI/2, 0f));
-			            		 break;
+
+			            case 1:  myModel1.setRotation(new Rotation(0f, 0f, 0f));
+	                     break;
+			            case 2:  myModel1.setRotation(new Rotation(0f, (float)Math.PI, 0f));
+	                     break;
+			            case 3:  myModel1.setRotation(new Rotation(0f,(float)-Math.PI/2, 0f));
+	                     break;
+			            case 4:  myModel1.setRotation(new Rotation(0f,(float)Math.PI/2, 0f));
+	            		 break;
 			            default: myModel1.setRotation(new Rotation(0f, 0f, 0f));
-			                     break;
+	                     break;
 			        }					
 				}
 					
@@ -155,7 +156,7 @@ public class MarkerlessTracking extends MetaioSDKViewActivity
 				if (myModel1 != null) 
 				{
 					
-					myModel1.setScale(new Vector3d(0.1f, 0.1f, 0.1f));
+					myModel1.setScale(new Vector3d(0.07f, 0.07f, 0.07f));
 
 					MetaioDebug.log("Loaded geometry "+modelFullPath);
 				}

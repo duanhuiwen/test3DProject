@@ -154,10 +154,10 @@ public class ShowSingleSceneActivity extends Activity{
 				// TODO Auto-generated method stub
 				
 				//start download, once the download is finished, it will notify the decompress receiver(registered in manifest) and then triger decompress service
-
+				
 				((Button) (ShowSingleSceneActivity.this.findViewById(R.id.scene_button))).setText(R.string.download_button);
 				v.setEnabled(false);
-				
+				Toast.makeText(context, R.string.download_start, Toast.LENGTH_LONG).show();
 				MDownloadManager dm = new MDownloadManager(context, model, scene_id);
 				dm.startDownload();
 				String downloadId = String.valueOf(dm.getDownloadId()); 
@@ -166,6 +166,7 @@ public class ShowSingleSceneActivity extends Activity{
 				ContentValues cv = new ContentValues();
 				cv.put(DbEntry.COLUMN_NAME_DOWNLOAD_ID, downloadId);
 				cv.put(DbEntry.COLUMN_NAME_DATE, dateFromXML);
+				
 				db.update(DbEntry.TABLE_NAME, cv, DbEntry.COLUMN_NAME_SCENE_ID+ "= ?" , new String[]{ scene_id });
 			}});
         
