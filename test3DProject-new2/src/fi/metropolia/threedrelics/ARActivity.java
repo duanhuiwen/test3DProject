@@ -15,9 +15,10 @@ import com.metaio.sdk.jni.Vector3d;
 
 
 import fi.metropolia.threedrelics.classes.ExtensionFinder;
+import fi.metropolia.threedrelics.classes.StaticString;
 import fi.metropolia.threedrelics.classes.XMLParser;
 
-public class MarkerlessTracking extends MetaioSDKViewActivity 
+public class ARActivity extends MetaioSDKViewActivity 
 {
 
 	
@@ -61,10 +62,7 @@ public class MarkerlessTracking extends MetaioSDKViewActivity
 	                     break;
 			        }					
 				}
-					
-				/*					myModel2.setCoordinateSystemID(poses.get(1).getCoordinateSystemID());
-			myModel3.setCoordinateSystemID(poses.get(2).getCoordinateSystemID());
-			myModel4.setCoordinateSystemID(poses.get(3).getCoordinateSystemID());*/
+	
 			
 			
 			
@@ -86,37 +84,7 @@ public class MarkerlessTracking extends MetaioSDKViewActivity
 	{
 		finish();
 	}
-	
-/*	public void onIdButtonClick(View v)
-	{
-		trackingConfigFile = AssetsManager.getAssetPath("Assets3/TrackingData_Marker.xml");
-		MetaioDebug.log("Tracking Config path = "+trackingConfigFile);
-		
-		boolean result = metaioSDK.setTrackingConfiguration(trackingConfigFile); 
-		MetaioDebug.log("Id Marker tracking data loaded: " + result); 
-		mMetaioMan.setScale(new Vector3d(2f, 2f, 2f));
-	}
-	
-	public void onPictureButtonClick(View v)
-	{
-		trackingConfigFile = AssetsManager.getAssetPath("Assets3/TrackingData_PictureMarker.xml");
-		MetaioDebug.log("Tracking Config path = "+trackingConfigFile);
-		
-		boolean result = metaioSDK.setTrackingConfiguration(trackingConfigFile); 
-		MetaioDebug.log("Picture Marker tracking data loaded: " + result); 
-		mMetaioMan.setScale(new Vector3d(8f, 8f, 8f));
 
-	}
-	
-	public void onMarkerlessButtonClick(View v)
-	{
-		trackingConfigFile = AssetsManager.getAssetPath("Assets3/TrackingData_MarkerlessFast.xml");
-		MetaioDebug.log("Tracking Config path = "+trackingConfigFile);
-	
-		boolean result = metaioSDK.setTrackingConfiguration(trackingConfigFile); 
-		MetaioDebug.log("Markerless tracking data loaded: " + result); 
-		mMetaioMan.setScale(new Vector3d(4f, 4f, 4f));
-	}*/
 	
 	@Override
 	protected void loadContent() 
@@ -124,9 +92,8 @@ public class MarkerlessTracking extends MetaioSDKViewActivity
 		try
 		{
 			
-			// Load desired tracking data for planar marker tracking
-			//trackingConfigFile = AssetsManager.getAssetPath("Assets3/TrackingData_MarkerlessFast.xml");
-			String path = intent.getStringExtra("path") ;
+
+			String path = intent.getStringExtra(StaticString.PATH) ;
 			
 			//modify the marker image
 			XMLParser xmlParser= new XMLParser();

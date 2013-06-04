@@ -21,9 +21,10 @@
 	<string name="step3">Step3</string>
 	<string name="step4">Step4</string>
 	
-	<string name="launch">Launch</string>
-	
+	<string name="launch">Go to app</string>
+	<string name="menu_refresh">refresh</string>
 	
 	<string name="download_finish">Download complete! Start configuration&#8230;</string>
+	<string name="download_start">Start download&#8230;</string>
 	<string name="decompress_finish">Configuration complete! You can view your new scene!</string>
 </resources>

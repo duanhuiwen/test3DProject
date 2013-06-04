@@ -32,6 +32,7 @@ import fi.metropolia.threedrelics.classes.StaticString;
 import fi.metropolia.threedrelics.classes.XMLParser;
 import fi.metropolia.threedrelics.db.DbEntry;
 import fi.metropolia.threedrelics.db.DbHelper;
+
 import fi.metropolia.threedrelics.listeners.SingleSceneOnClickListener;
 
 import android.app.Activity;
@@ -49,11 +50,12 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import java.net.URL;
+
 public class XMLParserTask extends AsyncTask<String, Void, String>{
 	
 	//represent the element in xml
 
-	static final String URL = "http://users.metropolia.fi/~huiwend/3DRelics/test_3d.xml";
+	
 	
 	
 
@@ -87,7 +89,7 @@ public class XMLParserTask extends AsyncTask<String, Void, String>{
 		
 	//	Log.d("return myParser.getXmlFromUrl(URL): ","return myParser.getXmlFromUrl(URL):"+ myParser.getXmlFromUrl(URL));
 		
-		return myParser.getXmlFromUrl(URL);
+		return myParser.getXmlFromUrl(StaticString.XML_URL);
 		
 		
 	}
@@ -113,8 +115,8 @@ public class XMLParserTask extends AsyncTask<String, Void, String>{
 		
 		Cursor cur = db.rawQuery("SELECT COUNT(*) FROM scenes", null);
 		if (cur != null) {
-		    cur.moveToFirst();                       // Always one row returned.
-		    if (cur.getInt (0) == 0) {               // Zero count means empty table.
+		    cur.moveToFirst();                      
+		    if (cur.getInt (0) == 0) {               // 0 means empty table.
 		    	ifInsert = true;
 		    }
 		}

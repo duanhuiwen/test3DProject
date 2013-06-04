@@ -1,6 +1,6 @@
 package fi.metropolia.threedrelics.listeners;
 
-import fi.metropolia.threedrelics.MarkerlessTracking;
+import fi.metropolia.threedrelics.ARActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
@@ -22,7 +22,7 @@ public class LaunchOnClickListener implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		Intent in = new Intent(activity.getApplicationContext(), MarkerlessTracking.class);
+		Intent in = new Intent(activity.getApplicationContext(), ARActivity.class);
 		in.putExtra("path", path);
 		activity.startActivity(in);
 		Log.d("start launch", "start launch");

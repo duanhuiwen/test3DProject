@@ -61,7 +61,7 @@ public class ExtensionFinder {
 		}
 	}*/
  
-	// inner class, generic extension filter
+	
 	public class GenericExtFilter implements FilenameFilter {
  
 		private String ext;

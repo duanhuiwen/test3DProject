@@ -36,14 +36,10 @@ import com.metaio.sdk.jni.MetaioSDK;
 import com.metaio.sdk.jni.Vector2di;
 import com.metaio.tools.Memory;
 
-/**
- * This is base activity to use metaio SDK. It creates GLSurface view and
- * handle all its callbacks and lifecycle. 
- *  
- * 
- * @author arsalan.malik
- * 
- */ 
+import fi.metropolia.threedrelics.classes.StaticString;
+
+
+//base class of metaio sdk
 public abstract class MetaioSDKViewActivity extends Activity implements MetaioSurfaceView.Callback, OnTouchListener
 {    
 	static 
@@ -150,9 +146,9 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 			
 
 			
-			final String signature = "OIR2aNwg1Fb1PTS4o1FNmH+TDQc5Ox6pUQqXnSIOqRg=";
+		
 
-			metaioSDK = MetaioSDK.CreateMetaioSDKAndroid(this, signature);
+			metaioSDK = MetaioSDK.CreateMetaioSDKAndroid(this, StaticString.SIGNATURE);
 			metaioSDK.registerSensorsComponent(mSensors);
 			metaioSDK.setSeeThrough(mSeeThrough);
 			
@@ -205,8 +201,7 @@ public abstract class MetaioSDKViewActivity extends Activity implements MetaioSu
 				final boolean portrait = (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
 				FrameLayout.LayoutParams params = mSurfaceView.getLayoutParams(mCameraResolution, getWindowSize(), true, portrait);
 				
-				MetaioDebug.log("mSurfaceView layout: "+params.width+", "+params.height);
-				MetaioDebug.log("MetaioSDKViewActivity.onStart: addContentView(mSurfaceView)");
+			
 				Log.d("add surface view","add surface view");
 				addContentView(mSurfaceView, params);
 				mSurfaceView.setZOrderMediaOverlay(true);
