@@ -1,0 +1,30 @@
+<resources>
+
+    <string name="app_name">3D Relics</string>
+    <string name="download_button">Download</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_show_scene">ShowSceneActivity</string>
+	<string name="string_get_scenes">Show Scenes</string>
+	<string name="launch_button">Launch</string>
+	<string name="update_button">Update</string>
+	
+	<string name="front_marker_string">Front</string>
+	<string name="back_marker_string">Back</string>
+	<string name="left_marker_string">Left</string>
+	<string name="right_marker_string">Right</string>
+	
+	<string name="sub_heading">Augmented reality for historical scene.</string>
+	
+	<string name="step1">Step1</string>
+	<string name="step2">Step2</string>
+	<string name="step3">Step3</string>
+	<string name="step4">Step4</string>
+	
+	<string name="launch">Go to app</string>
+	<string name="menu_refresh">refresh</string>
+	
+	<string name="download_finish">Download complete! Start configuration&#8230;</string>
+	<string name="download_start">Start download&#8230;</string>
+	<string name="decompress_finish">Configuration complete! You can view your new scene!</string>
+</resources>
